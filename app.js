@@ -18,10 +18,14 @@ require('dotenv').config();
   await page.click('#login-submit-button');
   await page.waitForNavigation();
   await page.goto('https://www.riteaid.com/shop/viactiv-calcium-plus-d-soft-chews-caramel-100-chews-0343778');
+  await page.waitForTimeout(1000)
   await page.click('#product-addtocart-button');
   await page.goto('https://www.riteaid.com/shop//viactiv-calcium-plus-d-soft-chews-milk-chocolate-100-chews-0343777');
+  await page.waitForTimeout(1000)
   await page.click('#product-addtocart-button');
+  await page.waitForTimeout(1000)
   await page.goto('https://www.riteaid.com/shop/checkout/cart/#cart');
+  await page.waitForTimeout(1000)
   //await page.type('#cart-68367616-qty', '10');
   //await page.type('#cart-68367622-qty', '10');
   //await page.$eval('input[data-cart-item-id="0343778"]', el => el.value = '10');
@@ -31,22 +35,32 @@ require('dotenv').config();
   await page.waitForTimeout(1000)
   page.keyboard.press('Backspace');
   inputOne.type("10");
+  await page.waitForTimeout(2000)
   const inputTwo = await page.$('input[data-cart-item-id="0343777"]');
   inputTwo.click({ clickCount: 3 })
   await page.waitForTimeout(1000)
   page.keyboard.press('Backspace');
   inputTwo.type("10");
-  page.keyboard.press('Enter');
   await page.waitForTimeout(2000)
+  page.keyboard.press('Enter');
+  await page.waitForTimeout(8000)
+  await page.goto('https://www.riteaid.com/shop/checkout/#shipping')
+  await page.waitForTimeout(5000)
+  //await page.evaluate(()=>page.button('data-role="proceed-to-checkout"').click())
   //await page.goto('https://www.riteaid.com/shop/checkout/cart/#cart');
 
   
   /*await page.goto('https://www.riteaid.com/shop/sales/order/history/');
   await page.click('a[data-post="{"action":"https:\/\/www.riteaid.com\/shop\/sales\/order\/reorder\/order_id\/8444008\/","data":{"uenc":"aHR0cHM6Ly93d3cucml0ZWFpZC5jb20vc2hvcC9zYWxlcy9vcmRlci9oaXN0b3J5Lw,,"}}"]');*/
-  await page.click('button[data-role="proceed-to-checkout"]');
-  await page.waitForTimeout(5000)
+  //await page.click('button[data-role="proceed-to-checkout"]');
+  //await page.waitForNavigation();
   //await page.click('button[type="submit"]');
-  await page.goto('https://www.riteaid.com/shop/checkout/#payment')
-  await page.waitForTimeout(5000)
-  await page.click('button[id="submit-order"]');
+  //await page.goto('https://www.riteaid.com/shop/checkout/#payment')
+  //await page.click('button[type="submit"]');
+  //await page.evaluate(()=>page.button('data-role="opc-continue"').click())
+  //await page.evaluate((button) => { button.click();
+  await page.$eval('button[data-role="opc-continue"]', button => button.click());
+  await page.waitForTimeout(8000)
+  //await page.click('button[id="submit-order"]');
+  await page.$eval('button[id="submit-order"]', button => button.click());
 })();
