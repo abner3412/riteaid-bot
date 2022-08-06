@@ -11,19 +11,24 @@ require('dotenv').config();
     height: 1080,
     deviceScaleFactor: 1,
   })
+  let times = 0
+  let checkouts = 36
   //logs in to riteaid site
   
   await page.type('#login-email', process.env.email);
   await page.type('#login-password', process.env.password);
   await page.click('#login-submit-button');
   await page.waitForNavigation();
+  while (times !== checkouts) {
+  await page.waitForTimeout(8000)
   await page.goto('https://www.riteaid.com/shop/viactiv-calcium-plus-d-soft-chews-caramel-100-chews-0343778');
-  await page.waitForTimeout(1000)
+  await page.waitForTimeout(3000)
   await page.click('#product-addtocart-button');
+  await page.waitForTimeout(3000)
   await page.goto('https://www.riteaid.com/shop//viactiv-calcium-plus-d-soft-chews-milk-chocolate-100-chews-0343777');
-  await page.waitForTimeout(1000)
+  await page.waitForTimeout(8000)
   await page.click('#product-addtocart-button');
-  await page.waitForTimeout(1000)
+  await page.waitForTimeout(3000)
   await page.goto('https://www.riteaid.com/shop/checkout/cart/#cart');
   await page.waitForTimeout(1000)
   //await page.type('#cart-68367616-qty', '10');
@@ -63,4 +68,9 @@ require('dotenv').config();
   await page.waitForTimeout(8000)
   //await page.click('button[id="submit-order"]');
   await page.$eval('button[id="submit-order"]', button => button.click());
+  await page.waitForTimeout(15000)
+  times++;
+  console.log(`Checkouts remaining ${checkouts-times}`);
+  }
+
 })();
