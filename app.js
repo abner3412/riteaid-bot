@@ -24,9 +24,18 @@ require('dotenv').config();
   await page.goto('https://www.riteaid.com/shop/checkout/cart/#cart');
   //await page.type('#cart-68367616-qty', '10');
   //await page.type('#cart-68367622-qty', '10');
-  await page.$eval('input[data-cart-item-id="0343778"]', el => el.value = '10');
-  await page.$eval('input[data-cart-item-id="0343777"]', el => el.value = '10');
-  await page.waitForNavigation();
+  //await page.$eval('input[data-cart-item-id="0343778"]', el => el.value = '10');
+  //await page.$eval('input[data-cart-item-id="0343777"]', el => el.value = '10');
+  const inputOne = await page.$('input[data-cart-item-id="0343778]');
+  await inputOne.click({ clickCount: 3 })
+  await inputOne.type("10");
+  const inputTwo = await page.$('input[data-cart-item-id="0343777"]');
+  await inputTwo.click({ clickCount: 3 })
+  await inputTwo.type("10");
+  await page.waitForTimeout(5000)
+  await page.goto('https://www.riteaid.com/shop/checkout/cart/#cart');
+
+  
   /*await page.goto('https://www.riteaid.com/shop/sales/order/history/');
   await page.click('a[data-post="{"action":"https:\/\/www.riteaid.com\/shop\/sales\/order\/reorder\/order_id\/8444008\/","data":{"uenc":"aHR0cHM6Ly93d3cucml0ZWFpZC5jb20vc2hvcC9zYWxlcy9vcmRlci9oaXN0b3J5Lw,,"}}"]');*/
   await page.click('button[data-role="proceed-to-checkout"]');
