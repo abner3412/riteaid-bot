@@ -12,8 +12,10 @@ require('dotenv').config();
   })
   let timesCheckedOut = 0;
   let timesToCheckout = parseInt(process.env.timestocheckout);
-  let oneSku = process.env.productonelink.slice(-7);
-  let twoSku = process.env.producttwolink.slice(-7);
+  let oneSku = process.env.productonesku;
+  let twoSku = process.env.producttwosku;
+  let oneQt = process.env.productOneQuantity;
+  let twoQt = process.env.productTwoQuantity;
   //logs in to riteaid site
   await page.type('#login-email', process.env.email);
   await page.type('#login-password', process.env.password);
@@ -38,13 +40,13 @@ require('dotenv').config();
   inputOne.click({ clickCount: 3 });
   await page.waitForTimeout(1000)
   page.keyboard.press('Backspace');
-  inputOne.type("10");
+  inputOne.type(`${oneQt}`);
   await page.waitForTimeout(2000)
   const inputTwo = await page.$(`input[data-cart-item-id="${twoSku}"]`);
   inputTwo.click({ clickCount: 3 })
   await page.waitForTimeout(1000)
   page.keyboard.press('Backspace');
-  inputTwo.type("10");
+  inputTwo.type(`${twoQt}`);
   await page.waitForTimeout(2000)
   page.keyboard.press('Enter');
   await page.waitForTimeout(8000)
